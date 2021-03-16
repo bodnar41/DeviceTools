@@ -1,9 +1,7 @@
 from tkinter import *
 import socket
-import sys
-import paramiko, time
-from tkinter import ttk, messagebox
-from tkinter.filedialog import askopenfilename
+import paramiko
+from tkinter import messagebox
 from tkinter import filedialog
 
 class Transfer():
@@ -67,28 +65,31 @@ class Transfer():
                                                           "*.*")))
             lbl_path_message.configure(text="File Opened: " + choosen.chosen_file)
 
-        def scp_conn(ip=None, user=None, pwd=None, filename=None):
+        def scp_conn(ip, user, pwd, filename):
                 if ip_input.index("end") != 0 and user_input.index("end") != 0 and pwd_input.index("end") != 0:
-                    try:
-                        print("Creating SSH Client..")
-                        ssh_client = paramiko.SSHClient()
-                        ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-                        ssh_client.connect(hostname=ip, username=user, password=pwd)
-                        sftp_client = ssh_client.open_sftp()
-                        print("File transferring")
+                    if output_input.index("end") != 0:
+                        try:
+                            print("Creating SSH Client..")
+                            ssh_client = paramiko.SSHClient()
+                            ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+                            ssh_client.connect(hostname=ip, username=user, password=pwd)
+                            sftp_client = ssh_client.open_sftp()
+                            print("File transferring")
 
-                        sftp_client.put(filename, f"C:/Users/{user}/{output_input.get()}")
-                        messagebox.showinfo("Error", f"File successfully transferred as {output_input.get()}")
-                        sftp_client.close()
-                        ssh_client.close()
-                    except paramiko.ssh_exception.AuthenticationException:
-                        messagebox.showerror("Error", f"Username:{user_input.get()} or password invalid!\nGive correct data!")
-                    except FileNotFoundError:
-                        messagebox.showerror("Error", f"{choosen().get()} invalid!\nGive correct path!")
-                    except socket.gaierror:
-                        messagebox.showerror("Error", f"{ip_input.get()} invalid! Give correct address!")
-                    except:
-                        messagebox.showerror("Error", f"Unexpected error!")
+                            sftp_client.put(filename, f"C:/Users/{user}/{output_input.get()}")
+                            messagebox.showinfo("Error", f"File successfully transferred as {output_input.get()}")
+                            sftp_client.close()
+                            ssh_client.close()
+                        except paramiko.ssh_exception.AuthenticationException:
+                            messagebox.showerror("Error", f"Username:{user_input.get()} or password invalid!\nGive correct data!")
+                        except FileNotFoundError:
+                            messagebox.showerror("Error", f"{choosen().get()} invalid!\nGive correct path!")
+                        except socket.gaierror:
+                            messagebox.showerror("Error", f"{ip_input.get()} invalid! Give correct address!")
+                        except:
+                            messagebox.showerror("Error", f"Unexpected error!")
+                    else:
+                        messagebox.showwarning("Warning", "Output name is required!")
                 else:
                     messagebox.showwarning("Warning", "IP Address, Username and Password are required!")
 
