@@ -2,7 +2,7 @@ import os
 import socket
 import time
 from tkinter import *
-from tkinter import ttk, filedialog, messagebox
+from tkinter import messagebox
 import paramiko
 from SSH_CONN import ssh_conn
 from SCP_CONN import scp_conn
@@ -66,7 +66,7 @@ class Logging:
         lbl_time.grid(row=7, column=0, pady=10, padx=20, sticky="w")
 
 
-        def test_conn(ip=None, user=None, pwd=None, cmd=None):
+        def test_conn(ip, user, pwd, cmd):
             try:
                 global running_check
                 running_check = True
@@ -83,25 +83,15 @@ class Logging:
                 print(stdout)
                 ssh_client.close()
 
-                # answer.config(text="")
             except paramiko.ssh_exception.AuthenticationException as e:
-                # print("Username: " + user + "\t or password invalid.")
-                # ssh_conn(ip_input.get(), None, None, cmd_input.get())
-                #answer.config(text=f"Username:{user_input.get()} or password invalid!\nGive correct datas!")
                 messagebox.showerror('Error', f"Username:{user_input.get()} or password invalid!\nGive correct data!")
                 running_check = False
 
             except socket.gaierror:
-                # print(ip + " invalid.")
-                # ssh_conn(None, user_input.get(), pwd_input.get(), cmd_input.get())
-                #answer.config(text=f"{ip_input.get()} invalid! Give correct address!")
                 messagebox.showerror('Error', f"{ip_input.get()} invalid! Give correct address!")
                 running_check = False
-
             except:
-                e = sys.exc_info()
-                #answer.config(text=f"Unexpected error: {e}")
-                messagebox.showerror('Error', f"Unexpected error: {e}")
+                messagebox.showerror('Error', f"Unexpected error!")
                 running_check = False
 
 
@@ -114,40 +104,26 @@ class Logging:
                             transfer_data.append(path_input.get())
                             transfer_data.append((int(monitoring_time_input.get())))
                             test_conn(ip_input.get(), user_input.get(), pwd_input.get(), "echo")
-                            with open("C:/Users/teszt/Device tools/moduls/info.txt", "w") as filehandle:
+                            with open("C:/Users/teszt/Device tools/moduls/logging.txt", "w") as filehandle:
                                 for listitem in transfer_data:
                                     filehandle.write(f"{listitem}\n")
                             if running_check == True:
                                 scp_conn(ip_input.get(), user_input.get(), pwd_input.get(), "put", "Logging_host.py")
-                                scp_conn(ip_input.get(), user_input.get(), pwd_input.get(), "put", "info.txt")
+                                scp_conn(ip_input.get(), user_input.get(), pwd_input.get(), "put", "logging.txt")
                                 ssh_conn(ip_input.get(), user_input.get(), pwd_input.get(),
                                          f"python C:/Users/Device_tools/Devicetools/Logging_host.py")
-                                # scp_conn(ip_input.get(), user_input.get(), pwd_input.get(), "get", "system_info.json")
-                                # answer.config(text=f"Successfully got info from {user_input.get()}")
                                 messagebox.showinfo('Info', f"Successfully started monitoring: {path_input.get()}!")
                                 get_time()
                                 global monitor_check
                                 monitor_check = True
-                                # get_time()
-                                # addedbtn = Button(Manage_Frame, text="Open",
-                                #                   bg="lightblue", fg="black", font=("times new roman", 12, "bold"),
-                                #                   command=lambda: open_info())
-                                # addedbtn.grid(row=5, column=1, padx=100, pady=10, sticky="w")
                         except ValueError:
                             messagebox.showerror('Error', f"Time must be number!")
-
-                                # get_time()
-                                # addedbtn = Button(Manage_Frame, text="Open",
-                                #                   bg="lightblue", fg="black", font=("times new roman", 12, "bold"),
-                                #                   command=lambda: open_info())
-                                # addedbtn.grid(row=5, column=1, padx=100, pady=10, sticky="w")
                     else:
-                        messagebox.showerror('Error', "Enter the time!")
+                        messagebox.showwarning('Warning', "Enter the time!")
                 else:
-                    messagebox.showerror('Error', "Enter the path!")
+                    messagebox.showwarning('Warning', "Enter the path!")
             else:
-                #answer.config(text="NO datas!\nEnter the auth datas!")
-                messagebox.showerror('Error', "NO data!\nEnter the auth data!")
+                messagebox.showwarning('Warning', "IP Address, Username and Password are required!")
 
 
         def open_info():
@@ -178,7 +154,7 @@ class Logging:
 
 
         # Button frame
-        getbtn = Button(Manage_Frame, text="Get Info",
+        getbtn = Button(Manage_Frame, text="Progress",
                            bg="lightblue", fg="black", font=("times new roman", 12, "bold"),
                            command= lambda: get_info())
         getbtn.grid(row=7, column=1, padx=20, pady=10, sticky="w")
@@ -192,5 +168,4 @@ class Logging:
 
 root = Tk()
 ob = Logging(root)
-
 root.mainloop()
