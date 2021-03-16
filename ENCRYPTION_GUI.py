@@ -1,12 +1,6 @@
-import os
-import socket
-import time
 from tkinter import *
 from tkinter import ttk, filedialog, messagebox
 from tkinter.filedialog import askopenfile
-import paramiko
-from SSH_CONN import ssh_conn
-from SCP_CONN import scp_conn
 
 class Device:
     def __init__(self, root):
@@ -127,14 +121,14 @@ class Device:
                 clear_name = cutted_filename[::-1]
                 old_name = clear_name.split("-")
                 current_path = filename[0:-counter]
-                print(current_path)
+                #print(current_path)
 
                 data = bytearray(data)
                 for index, value in enumerate(data):
                     data[index] = value ^ int(key)
 
                 file = open(current_path + old_name[1], "wb")
-                print(file)
+                #print(file)
                 file.write(data)
                 file.close()
                 messagebox.showinfo("Success", "Successfully Decrypted!")
@@ -154,9 +148,9 @@ class Device:
                 elif choice[0] == "2.":
                     decrypt()
                 else:
-                    messagebox.showerror("Error", "No action given!")
+                    messagebox.showwarning("Warning", "No action given!")
             else:
-                messagebox.showerror("Error", "Open a file first")
+                messagebox.showwarning("Warning", "Open a file first")
 
         # Button frame
         getbtn = Button(Manage_Frame, text="Open",
