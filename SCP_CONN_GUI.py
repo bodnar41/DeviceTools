@@ -1,7 +1,9 @@
 from tkinter import *
 import socket
-import paramiko
-from tkinter import messagebox
+import sys
+import paramiko, time
+from tkinter import ttk, messagebox
+from tkinter.filedialog import askopenfilename
 from tkinter import filedialog
 
 class Transfer():
@@ -57,7 +59,7 @@ class Transfer():
 
 
         def choosen():
-            choosen.chosen_file = filedialog.askopenfilename(initialdir="/",
+            choosen.chosen_file = filedialog.askopenfilename(initialdir="C:/Users/Device_tools/",
                                               title="Select a File",
                                               filetypes=(("Text files",
                                                           "*.txt*"),
@@ -103,7 +105,7 @@ class Transfer():
 
         # Button frame
         button_explore = Button(Manage_Frame,
-                                text="Browse Files",
+                                text="Browse",
                                 command= lambda: choosen())
         button_explore.grid(row=6, column=1, padx=100, pady=10, sticky="w")
 

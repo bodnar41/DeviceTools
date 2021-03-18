@@ -2,7 +2,7 @@ import os
 import socket
 import time
 from tkinter import *
-from tkinter import messagebox
+from tkinter import ttk, filedialog, messagebox
 import paramiko
 from SSH_CONN import ssh_conn
 from SCP_CONN import scp_conn
@@ -83,15 +83,17 @@ class Logging:
                 print(stdout)
                 ssh_client.close()
 
-            except paramiko.ssh_exception.AuthenticationException as e:
+            except paramiko.ssh_exception.AuthenticationException :
                 messagebox.showerror('Error', f"Username:{user_input.get()} or password invalid!\nGive correct data!")
                 running_check = False
 
             except socket.gaierror:
                 messagebox.showerror('Error', f"{ip_input.get()} invalid! Give correct address!")
                 running_check = False
+
             except:
-                messagebox.showerror('Error', f"Unexpected error!")
+                e = sys.exc_info()
+                messagebox.showerror('Error', f"Unexpected error: {e}")
                 running_check = False
 
 
@@ -104,7 +106,7 @@ class Logging:
                             transfer_data.append(path_input.get())
                             transfer_data.append((int(monitoring_time_input.get())))
                             test_conn(ip_input.get(), user_input.get(), pwd_input.get(), "echo")
-                            with open("C:/Users/teszt/Device tools/moduls/logging.txt", "w") as filehandle:
+                            with open("C:/Users/Device_tools/Devicetools/moduls/logging.txt", "w") as filehandle:
                                 for listitem in transfer_data:
                                     filehandle.write(f"{listitem}\n")
                             if running_check == True:
@@ -119,7 +121,7 @@ class Logging:
                         except ValueError:
                             messagebox.showerror('Error', f"Time must be number!")
                     else:
-                        messagebox.showwarning('Warning', "Enter the time!")
+                        messagebox.showwarning('Warning', "Enter time!")
                 else:
                     messagebox.showwarning('Warning', "Enter the path!")
             else:

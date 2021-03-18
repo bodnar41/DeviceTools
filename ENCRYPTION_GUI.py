@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import ttk, filedialog, messagebox
 from tkinter.filedialog import askopenfile
 
-class Device:
+class Encryption:
     def __init__(self, root):
         self.root = root
         self.root.title("File Encryption")
@@ -37,7 +37,7 @@ class Device:
         def file_open():
             """open a file to read"""
             # optional initial directory (default is current directory)
-            initial_dir = "E:/PyCharm/Projects/"
+            initial_dir = "C:/Users/Device_tools/"
 
             # the filetype mask (default is all files)
             mask = \
@@ -48,7 +48,7 @@ class Device:
             try:
                 file_open.fin = ""
                 file_open.fin = askopenfile(initialdir=initial_dir, filetypes=mask, mode='r')
-                print(file_open.fin.name)
+                #print(file_open.fin.name)
                 global check
                 check = True
 
@@ -165,6 +165,5 @@ class Device:
 
 
 root = Tk()
-ob = Device(root)
-
+ob = Encryption(root)
 root.mainloop()

@@ -1,6 +1,5 @@
 import paramiko, time
 
-
 def ssh_conn(ip, user, pwd, cmd):
     #print("Creating SSH Client..")
     ssh_client = paramiko.SSHClient()

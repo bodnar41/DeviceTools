@@ -7,7 +7,6 @@ import datetime as dt
 import getpass
 import psutil
 
-
 class Home:
     def __init__(self, root):
         self.root = root
@@ -48,7 +47,6 @@ class Home:
             disks[partition.device] = get_size(partition_usage.total)
 
         # RAM info
-        # print("Memory info")
         total = round(psutil.virtual_memory().total * (9.91 * 10 ** -10))
 
         title = Label(root, text=f"Welcome {username}!", bd=5, relief=GROOVE, font=("times new roman", 20, "bold"), bg="black", fg="white")
@@ -64,7 +62,6 @@ class Home:
         combo_type['values'] = ("1. Test SSH connection", "2. Test File Transferring with SCP", "3. Get System Information from a remote Host",
                                 "4. Encrypt/Decrypt a file", "5. Monitor a remote host", "6. Device Management System")
         combo_type.grid(row=1, column=0, pady=10, padx=20, sticky="w")
-
 
         Data_Frame = Frame(root, bd=0, relief=RIDGE, bg="white")
         Data_Frame.place(x=575, y=450, width=145, height=25)
@@ -88,23 +85,24 @@ class Home:
 
         ssh_text = "Use this feature to test the SSH connection is working\n" \
                    "properly. Add Host IP Adrress, Username and Password\n" \
-                   "and the function test it. If the test is successfull\n" \
+                   "and the function tests it. If the test is successfull\n" \
                    "You will get a feedback."
 
         scp_text = "Use this function to test the File Transferring is working\n" \
-                   "properly.Add Host IP Adrress, Username and Password,\n" \
-                   "select Action (Put or Get), then select a File and the\n" \
-                   "function Put/Get it. If the progress is successfull You will get a feedback."
+                   "properly. Add Host IP Adrress, Username and Password,\n" \
+                   "select Action (Put or Get), then select a File.\n" \
+                   "If the progress is successfull You will get a feedback."
 
         sysinfo_text = "Use this feature to get information from a remote Host.\n" \
                        "Add Host IP Adrress, Username and Password select\n" \
                        "what kind of info You want.With Get Info button You\n" \
                        "received the selected info in .json file. With Get QR\n" \
-                       "received a QR code from infos. If the progress is\n" \
-                       "successfull You will be able to open the received file(s)."
+                       "received a QR code from the Host's information.\n" \
+                       "If the progress is successfull You will be able to open\n" \
+                       "the received file(s)."
 
         encryption_text = "Use this function to encrypt/decrypt a file on your local\n" \
-                          "system.Open a file select Action (Encrypt or Decrypt),\n" \
+                          "system. Open a file, select Action (Encrypt or Decrypt),\n" \
                           "then enter a Key as number! If the progress is successfull\n" \
                           "Your file will be encrypt/decrypt."
 
@@ -113,10 +111,9 @@ class Home:
                         "If the progress is successfull, You will get a log file with\n" \
                        "the informations."
 
-        mgmt_text = "Use this function to store devices. With this device\n" \
-                    "management, You can get an overview about the\n" \
-                    "guarantee status of devices. You will get an email alert\n" \
-                    "when the expiration day of guarantee less than 60 days.\n" \
+        mgmt_text = "Use this function to store devices. With this Device\n" \
+                    "Management, You can get an overview about the\n" \
+                    "guarantee status of devices.\n" \
                     "You can add, edit and delete devices and search by\n" \
                     "different filters." \
 

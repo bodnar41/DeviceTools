@@ -10,7 +10,7 @@ except ImportError:
     import Tkinter as tk
     import ttk
 
-from tkcalendar import  DateEntry
+from tkcalendar import DateEntry
 
 class Device:
     def __init__(self, root):

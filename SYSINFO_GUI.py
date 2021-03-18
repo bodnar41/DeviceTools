@@ -7,7 +7,7 @@ import paramiko
 from SSH_CONN import ssh_conn
 from SCP_CONN import scp_conn
 
-class Device:
+class Sysinfo:
     def __init__(self, root):
         self.root = root
         self.root.title("System Info")
@@ -20,9 +20,6 @@ class Device:
         # Manage frame
         Manage_Frame = Frame(root, bd=4, relief=RIDGE, bg="grey")
         Manage_Frame.place(x=20, y=100, width=550, height=380)
-
-        answer = Label(Manage_Frame, text=None, bg="grey", fg="white", font=("times new roman", 12))
-        answer.grid(row=7, column=1, padx=10)
 
 
         lbl_ip = Label(Manage_Frame, text="Enter IP Address:", bg="grey", fg="white", font=("times new roman", 15, "bold"))
@@ -50,8 +47,6 @@ class Device:
         combo_type  = ttk.Combobox(Manage_Frame, font=("times new roman", 15, "bold"), width = 18, state="readonly")
         combo_type['values'] = ("1. System info", "2. CPU info", "3. Frequency info", "4. Core info")
         combo_type.grid(row=4, column=1, pady=10, padx=20, sticky="w")
-
-        cmd_input = "echo"
 
         def test_conn(ip=None, user=None, pwd=None, cmd=None):
             try:
@@ -91,7 +86,7 @@ class Device:
                     splitted_type = combo_type.get().split(" ")
                     transfer_data = [splitted_type[0], user_input.get()]
                     test_conn(ip_input.get(), user_input.get(), pwd_input.get(), "echo")
-                    with open("C:/Users/teszt/Device tools/moduls/info.txt", "w") as filehandle:
+                    with open("C:/Users/Device_tools/Devicetools/moduls/info.txt", "w") as filehandle:
                         for listitem in transfer_data:
                             filehandle.write(f"{listitem}\n")
                     if running_check == True:
@@ -100,7 +95,7 @@ class Device:
                             scp_conn(ip_input.get(), user_input.get(), pwd_input.get(), "put", "info.txt")
                             ssh_conn(ip_input.get(), user_input.get(), pwd_input.get(), f"python C:/Users/Device_tools/Devicetools/System_info.py")
 
-                            messagebox.showinfo('Info', f"Successfully got info from {user_input.get()}")
+                            messagebox.showinfo('Info', f"Successfully got info from {user_input.get()}!")
                             addedbtn = Button(Manage_Frame, text="Open",
                                               bg="lightblue", fg="black", font=("times new roman", 12, "bold"),
                                               command=lambda: open_info())
@@ -120,7 +115,7 @@ class Device:
             scp_conn(ip_input.get(), user_input.get(), pwd_input.get(), "get", "sysinfo.png")
             try:
                 from PIL import Image
-                Image.open("C:/Users/teszt/Device tools/data/sysinfo.png").show()
+                Image.open("C:/Users/Device_tools/Devicetools/data/sysinfo.png").show()
             except FileNotFoundError:
                 messagebox.showerror('Error', "The sysinfo.png not found!")
             except:
@@ -132,7 +127,6 @@ class Device:
                     scp_conn(ip_input.get(), user_input.get(), pwd_input.get(), "put", "QR_maker.py")
                     ssh_conn(ip_input.get(), user_input.get(), pwd_input.get(),
                              f"python C:/Users/Device_tools/Devicetools/QR_maker.py")
-                    # answer.config(text=f"Successfully got QR code from {user_input.get()}!")
                     messagebox.showinfo('Info', f"Successfully got QR code from {user_input.get()}!")
                     addedbtn = Button(Manage_Frame, text="Open",
                                       bg="lightblue", fg="black", font=("times new roman", 12, "bold"),
@@ -142,7 +136,7 @@ class Device:
                     pass
 
             else:
-                messagebox.showerror('Error', f"NO data!\nEnter the auth data!")
+                messagebox.showwarning('Warning', "IP Address, Username and Password are required!")
 
 
         # Button frame
@@ -159,6 +153,5 @@ class Device:
 
 
 root = Tk()
-ob = Device(root)
-
+ob = Sysinfo(root)
 root.mainloop()

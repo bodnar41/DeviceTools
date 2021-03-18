@@ -1,8 +1,5 @@
-# a very simple Tkinter editor to show file read/write dialog
-
 from tkinter import *
 from tkinter.filedialog import askopenfile, asksaveasfile
-
 
 class Editor(object):
     def __init__(self, master):
@@ -22,11 +19,10 @@ class Editor(object):
         filemenu.add_command(label="Exit", command=self.do_exit)
 
 
-
     def file_open(self):
         """open a file to read"""
         # optional initial directory (default is current directory)
-        initial_dir = "E:/PyCharm/Projects/"
+        initial_dir = "C:/Users/Device_tools/"
         # the filetype mask (default is all files)
         mask = \
             [("Text and JSON files", "*.txt *.json"),
@@ -47,8 +43,6 @@ class Editor(object):
             from PIL import Image
             Image.open(fin.name).show()
 
-
-
     def file_save(self):
         """get a filename and save the text in the editor widget"""
         # default extension is optional, here will add .txt if missing
@@ -59,8 +53,6 @@ class Editor(object):
 
     def do_exit(self):
         root.destroy()
-
-
 
 
 root = Tk()

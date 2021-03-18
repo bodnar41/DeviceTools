@@ -7,7 +7,7 @@ class SSH():
     def __init__(self, root):
         self.root = root
         self.root.title('SSH Teszt')
-        self.root.geometry("600x400")
+        self.root.geometry("600x350")
         def ssh_conn(ip, user, pwd, cmd):
             if ip_input.index("end") != 0 and user_input.index("end") != 0 and pwd_input.index("end") != 0:
 
@@ -25,6 +25,7 @@ class SSH():
                     print(stdout)
                     ssh_client.close()
                     messagebox.showinfo("Info", "SSH connection is OK!")
+
                 except paramiko.ssh_exception.AuthenticationException as e:
                     messagebox.showerror("Error", f"Username:{user_input.get()} or password invalid!\nEnter correct data!")
 
@@ -42,7 +43,7 @@ class SSH():
 
         # Manage frame
         SSH_Frame = Frame(self.root, bd=4, relief=RIDGE, bg="grey")
-        SSH_Frame.place(x=20, y=75, width=550, height=300)
+        SSH_Frame.place(x=20, y=75, width=550, height=250)
 
 
         lbl_ip = Label(SSH_Frame, text="Enter IP Address:", bg="grey", fg="white", font=("times new roman", 15, "bold"))
@@ -70,7 +71,7 @@ class SSH():
         testbtn = Button(SSH_Frame, text="Test SSH",
                            bg="lightblue", fg="black", font=("times new roman", 12, "bold"),
                            command= lambda: ssh_conn(ip_input.get(), user_input.get(), pwd_input.get(), cmd_input))
-        testbtn.grid(row=5, column=1, padx=10, pady=10, sticky="w")
+        testbtn.grid(row=5, column=1, padx=80, pady=10, sticky="w")
 
 
 root = Tk()
