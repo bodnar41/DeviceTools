@@ -90,11 +90,11 @@ class Home:
 
         scp_text = "Use this function to test the File Transferring is working\n" \
                    "properly. Add Host IP Adrress, Username and Password,\n" \
-                   "select Action (Put or Get), then select a File.\n" \
+                   "then select a File.\n" \
                    "If the progress is successfull You will get a feedback."
 
         sysinfo_text = "Use this feature to get information from a remote Host.\n" \
-                       "Add Host IP Adrress, Username and Password select\n" \
+                       "Add Host IP Adrress, Username and Password, select\n" \
                        "what kind of info You want.With Get Info button You\n" \
                        "received the selected info in .json file. With Get QR\n" \
                        "received a QR code from the Host's information.\n" \
