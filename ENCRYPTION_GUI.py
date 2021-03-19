@@ -150,7 +150,7 @@ class Encryption:
                 else:
                     messagebox.showwarning("Warning", "No action given!")
             else:
-                messagebox.showwarning("Warning", "Open a file first")
+                messagebox.showwarning("Warning", "Open a file first!")
 
         # Button frame
         getbtn = Button(Manage_Frame, text="Open",

@@ -65,7 +65,7 @@ class Transfer():
                                                           "*.txt*"),
                                                          ("all files",
                                                           "*.*")))
-            lbl_path_message.configure(text="File Opened: " + choosen.chosen_file)
+            lbl_path_message.configure(text="Chosen file: " + choosen.chosen_file)
 
         def scp_conn(ip, user, pwd, filename):
                 if ip_input.index("end") != 0 and user_input.index("end") != 0 and pwd_input.index("end") != 0:
